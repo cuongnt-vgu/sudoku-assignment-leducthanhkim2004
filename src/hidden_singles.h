@@ -6,6 +6,8 @@ typedef struct HiddenSingle_impl
 {
     Cell *p_cell;
     int value;
+    
+    
 } HiddenSingle;
 
 // find hidden single values (the value that is unique among all the candidates for a row, a collumn, or a box)
@@ -17,3 +19,4 @@ void find_hidden_single(Cell **p_cells, HiddenSingle *p_hidden_singles,
 
 // find hidden single cells in a board, return the number of hidden single cells
 int hidden_singles(SudokuBoard *p_board);
+bool is_in_Hidden(HiddenSingle*p_hidden_single, int *size,Cell* p);

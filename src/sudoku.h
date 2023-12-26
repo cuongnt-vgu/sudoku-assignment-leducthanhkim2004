@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 
 #include <stdbool.h>
 
@@ -6,13 +6,14 @@
 
 struct Cell_impl
 {
-    int row_index;
-    int col_index;
-    int box_index;
-    int num_candidates;
+    int row_index;// from 1 to 9
+    int col_index;// from 1 to 9
+    int box_index;// from 1 to 9 
+    int num_candidates; // count the number of candidates
     int candidates[BOARD_SIZE];
-    int value; // solved or 0
-    bool fixed;
+    int value; // 
+    bool fixed;// 
+  
 };
 
 typedef struct Cell_impl Cell;
@@ -42,7 +43,7 @@ void set_candidate(Cell *cell, int value);
 void unset_candidate(Cell *cell, int value);
 void set_candidates(Cell *cell, int *candidates, int size);
 int *get_candidates(Cell *cell);
-
+bool is_candidate(Cell *cell, int value);
 int check_solved_cells(SudokuBoard *p_board, Cell ***p_solved_cells);
 bool show_possible(SudokuBoard *p_board, Cell **p_solved_cells, int counter);
 void free_sudoku(SudokuBoard *p_board);

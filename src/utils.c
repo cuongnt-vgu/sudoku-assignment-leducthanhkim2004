@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #include "sudoku.h"
-
+// initialize the sudoku board 
 void init_sudoku(SudokuBoard *p_board)
 {
     p_board->data = malloc(BOARD_SIZE * sizeof(Cell *));
@@ -34,7 +34,7 @@ void init_sudoku(SudokuBoard *p_board)
 
     p_board->solved_counter = 0;
 }
-
+// free memory for each row cols boxes 
 void free_sudoku(SudokuBoard *p_board)
 {
     for (int i = 0; i < BOARD_SIZE; i++)
@@ -46,12 +46,12 @@ void free_sudoku(SudokuBoard *p_board)
     }
     free(p_board->data);
 }
-
+// compare the solved counter to  the total number of the cells to check whether it has been solved
 bool is_solved(SudokuBoard *p_board)
 {
     return p_board->solved_counter == BOARD_SIZE * BOARD_SIZE;
 }
-
+// print the solution of the Sudoku Board 
 void print_solution(SudokuBoard *p_board)
 {
     assert(is_solved(p_board));
@@ -66,24 +66,24 @@ void print_solution(SudokuBoard *p_board)
         }
     }
 }
-
+// set the value as a candidate for cell
 void set_candidate(Cell *cell, int value)
 {
     cell->candidates[value - 1] = 1;
     cell->num_candidates += 1;
 }
-
+// unsets candidates for a given cells
 void unset_candidate(Cell *cell, int value)
 {
     cell->candidates[value - 1] = 0;
     cell->num_candidates -= 1;
 }
-
+// check wether this number is candidates
 bool is_candidate(Cell *cell, int value)
 {
     return cell->candidates[value - 1] == 1;
 }
-
+//Sets a list of candidates for a cell and updates the numbers of candidates
 void set_candidates(Cell *cell, int *candidates, int size)
 {
     // reset candidates
@@ -93,6 +93,7 @@ void set_candidates(Cell *cell, int *candidates, int size)
     }
 
     cell->num_candidates = 0;
+    
 
     // set candidate list
     for (int i = 0; i < size; i++)
@@ -105,7 +106,7 @@ void set_candidates(Cell *cell, int *candidates, int size)
         cell->value = candidates[0];
     }
 }
-
+//return an array of candidates for given cells
 int *get_candidates(Cell *cell)
 {
     int *out = malloc(cell->num_candidates * sizeof(int));
@@ -119,7 +120,7 @@ int *get_candidates(Cell *cell)
     }
     return out;
 }
-
+// loads a sudoku from string board representation
 void load_sudoku(SudokuBoard *p_board, char *textData)
 {
     for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
@@ -140,7 +141,7 @@ void load_sudoku(SudokuBoard *p_board, char *textData)
         }
     }
 }
-
+// apply a constraint to a group of cells
 bool apply_constraint(Cell **p_cells, int value)
 {
     bool ret = false;
@@ -158,7 +159,7 @@ bool apply_constraint(Cell **p_cells, int value)
     }
     return ret;
 }
-
+// show all possilble candidates for a group of solved cells
 bool show_possible(SudokuBoard *p_board, Cell **p_solved_cells, int counter)
 {
     bool ret = false;
@@ -174,7 +175,7 @@ bool show_possible(SudokuBoard *p_board, Cell **p_solved_cells, int counter)
     }
     return ret;
 }
-
+// check the elements where in a each list
 bool is_in_list(Cell **p_array, int size, Cell *p)
 {
     for (int i = 0; i < size; i++)
@@ -184,7 +185,7 @@ bool is_in_list(Cell **p_array, int size, Cell *p)
     }
     return false;
 }
-
+// check wether has been solved
 int check_solved_cells(SudokuBoard *p_board, Cell ***p_solved_cells)
 {
     int counter = p_board->solved_counter;
@@ -208,6 +209,7 @@ int check_solved_cells(SudokuBoard *p_board, Cell ***p_solved_cells)
     *p_solved_cells = &p_board->solved_cells[counter];
     return p_board->solved_counter - counter;
 }
+//print the candidcate number
 
 void print_candidate_num(SudokuBoard *p_board)
 {
