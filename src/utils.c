@@ -175,7 +175,7 @@ bool show_possible(SudokuBoard *p_board, Cell **p_solved_cells, int counter)
     }
     return ret;
 }
-// check the elements where in a each list
+
 bool is_in_list(Cell **p_array, int size, Cell *p)
 {
     for (int i = 0; i < size; i++)

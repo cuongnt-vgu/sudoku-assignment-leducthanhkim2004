@@ -12,7 +12,8 @@ struct Cell_impl
     int num_candidates; // count the number of candidates
     int candidates[BOARD_SIZE];
     int value; // 
-    bool fixed;// 
+    bool fixed;//
+    bool processed;
   
 };
 
